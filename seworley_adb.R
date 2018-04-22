@@ -90,7 +90,7 @@ myadaboost <- function(train, k, n_elements){
   i <- 1
   while (i <= k) {
     d_sample <- train[sample(n_elements, n_elements, replace = TRUE, prob = weights), ]
-    c_stump <- rpart(Label ~ ., data = d_sample, method = "class", maxdepth = 1)
+    c_stump <- rpart(formula=Label~., data = d_sample, method = "class", maxdepth = 1)
     c_pred[i,] <- as.double(as.vector(predict(c_stump, train, type = "class")))
     epsilon <- calculate_epsilon(weights, train$Label, c_pred[i,], n_elements)
     if (epsilon > 0.5) {
